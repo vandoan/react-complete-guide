@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
-import './App.css';
-import styled from 'styled-components';
+import classes from './App.css';
 import Person from './Person/Person';
-import Radium, {StyleRoot} from 'radium';
+// import styled from 'styled-components';
+// import Radium, {StyleRoot} from 'radium';
 
-const ButtonStyle = styled.button`
-  background-color: ${props => props.alt ? 'red' : 'green'};
-  border: 1px solid blue;
-  color: white;
-  cursor: pointer;
-  font: inherit;
-  padding: 8px;
-  &:hover {
-    background-color: ${props => props.alt ? 'salmon' : 'lightgreen'};
-    color: black;
-  }
+// const ButtonStyle = styled.button`
+//   background-color: ${props => props.alt ? 'red' : 'green'};
+//   border: 1px solid blue;
+//   color: white;
+//   cursor: pointer;
+//   font: inherit;
+//   padding: 8px;
+//   &:hover {
+//     background-color: ${props => props.alt ? 'salmon' : 'lightgreen'};
+//     color: black;
+//   }
   
-`
+//`
 
 class App extends Component {
 
@@ -93,6 +93,7 @@ class App extends Component {
   render() {
 
     let persons = null;
+    let btnClasses = [classes.Button];
 
 
     if( this.state.showPersons ) {
@@ -131,29 +132,31 @@ class App extends Component {
       //   backgroundColor: 'salmon',
       //   color: 'black'
       // };
+
+      btnClasses.push(classes.Red);
     }
 
-    const classes = [];
+    const assignedClasses = [];
 
     if(this.state.persons.length <= 2){
-      classes.push('red');
+      assignedClasses.push(classes.red);
     }
 
     if(this.state.persons.length <= 1){
-      classes.push('bold');
+      assignedClasses.push(classes.bold);
     }
 
     
     return (
-      <StyleRoot>
-        <div className="App">
+        <div className={classes.App}>
 
-          <p className={classes.join(' ')}>Good times.</p>
+          <p className={assignedClasses.join(' ')}>Good times.</p>
 
-          <ButtonStyle 
+          <button 
+            className={btnClasses.join(' ')}
             alt={this.state.showPersons}
             onClick={this.togglePersonsHandler}>Show names
-          </ButtonStyle>
+          </button>
 
           {persons}
 
@@ -178,12 +181,12 @@ class App extends Component {
           } */}
 
         </div>
-      </StyleRoot>
     );
 
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Howdy'));
   }
 }
 
-export default Radium(App);
+export default App;
+// export default Radium(App);
 // Radium - higher order component
