@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import classes from './App.css';
 import Cockpit from '../components/Cockpit/Cockpit';
 import Persons from '../components/Persons/Persons';
+import withClass from '../hoc/withClass';
+import Aux from '../hoc/Aux';
 
 class App extends Component {
 
@@ -11,7 +13,8 @@ class App extends Component {
       { name: 'Ren', age: 4, id: 'aa11' },
       { name: 'Mara', age: 24, id: 'aa13' },
     ],
-    showPersons: false
+    showPersons: false,
+    authenticated: false
   }
 
   deletePersonHandler = ( personIndex ) => {
@@ -19,6 +22,7 @@ class App extends Component {
     persons.splice(personIndex, 1);               // 2nd index removes the number of items
     this.setState({persons: persons});            // Use slice to make copy, best practice
   }
+
 
   nameChangedHandler = ( event, id ) => {
 
@@ -44,6 +48,10 @@ class App extends Component {
     this.setState({showPersons: !doesShow});
   }
 
+  loginHandler = () => {
+    this.setState({authenticated: true});
+  }
+
   render() {
 
     let persons = null;
@@ -53,26 +61,29 @@ class App extends Component {
             changed={this.nameChangedHandler}
             clicked={this.deletePersonHandler}
             persons={this.state.persons}
+            isAuthenticated={this.state.authenticated}
           />;
     }
     
     return (
-        <div className={classes.App}>
-          
+        <Aux classes={classes.App}>
+
           <Cockpit 
+          title={this.props.appTitle}
           showPersons={this.state.showPersons}
           persons={this.state.persons}
           clicked={this.togglePersonsHandler}
+          login={this.loginHandler}
           />
 
           {persons}
 
-        </div>
+        </Aux>
     );
 
   }
 }
 
-export default App;
+export default withClass(App, classes.App);
 // export default Radium(App);
 // Radium - higher order component

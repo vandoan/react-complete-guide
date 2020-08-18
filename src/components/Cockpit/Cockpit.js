@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import classes from './Cockpit.css';
 
 const cockpit = (props) => {
     const assignedClasses = [];
+    const toggleBtnRef = useRef(null);
     let btnClasses = '';
 
     if(props.showPersons) {
@@ -18,15 +19,20 @@ const cockpit = (props) => {
       assignedClasses.push(classes.bold);
     }
 
+ 
+
     return (
         <div className={classes.Cockpit}>
-            <p className={assignedClasses.join(' ')}>Good times.</p>
+            <p className={assignedClasses.join(' ')}>{props.title}</p>
 
             <button 
             className={btnClasses}
             alt={props.showPersons}
-            onClick={props.clicked}>Show names
+            onClick={props.clicked}
+            ref={toggleBtnRef}>
+            Show names
             </button>
+            <button onClick={props.login}>Log in</button>
         </div>
     );
 }
