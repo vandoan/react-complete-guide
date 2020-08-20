@@ -3,7 +3,7 @@ import Aux from '../../../hoc/Aux';
 import classes from './Person.css';
 import PropTypes from 'prop-types';
 import withClass from  '../../../hoc/withClass';
-// import Radium from 'radium';
+import AuthContext from '../../../context/auth-context';
 import styled from 'styled-components';
 
 class Person extends Component {
@@ -12,6 +12,8 @@ class Person extends Component {
 		this.inputElementRef = React.createRef();
 	}
 
+	static contextType = AuthContext;
+
 	componentDidMount() {
 		this.inputElementRef.current.focus();
 	}
@@ -19,7 +21,7 @@ class Person extends Component {
 	render() {
 		return (
 			<Aux>
-				{this.props.isAuth ? <p>Authenticated</p> : <p>Please log in</p>}
+				{ this.context.authenticated ?  <p>Authenticated</p> : <p>Please log in</p>}
 				<p onClick={this.props.click}>I'm {this.props.name}, and I am {this.props.age} years old.</p>
 				<p>{this.props.children}</p>
 				<input 

@@ -10,7 +10,6 @@ class Persons extends Component {
                 click={() => this.props.clicked(index)}
                 key={person.id}
                 name={person.name}
-                isAuth={this.props.isAuthenticated}
                 />
         });
 
